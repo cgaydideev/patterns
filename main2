@@ -1,0 +1,33 @@
+class Car:
+
+    def drive(self):
+        print("Запуск автомобильного двигателя")
+
+
+class Bus:
+
+    def drive(self):
+        print("Запуск автобусного двигателя")
+
+
+class CarFactory:
+
+    def get_vehicle(self):
+        return Car()
+
+
+class VehicleStore:
+
+    def __init__(self, vehicle_factory=None):
+        self._vehicle_factory = vehicle_factory
+
+    def buy_vehicle(self):
+        vehicle = self._vehicle_factory.get_vehicle()
+        vehicle.drive()
+
+
+factory = CarFactory()
+
+store = VehicleStore(factory)
+
+store.buy_vehicle()
