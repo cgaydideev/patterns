@@ -1,0 +1,54 @@
+class Director():
+
+    def __init__(self, builder):
+        self._builder = builder
+
+    def create_house(self):
+        self._builder.create_new_house()
+        self._builder.add_foundation()
+        self._builder.add_rooms()
+        self._builder.add_roof()
+
+    def get_house(self):
+        return self._builder.house
+
+
+class Builder():
+
+    def __init__(self):
+        self.house = None
+
+    def create_new_house(self):
+        self.house = House()
+
+
+class BarracaBuilder(Builder):
+
+    def add_foundation(self):
+        self.house.foundation = 'цементный фундамент'
+
+    def add_roof(self):
+        self.house.roof = 'черепичная крыша'
+
+    def add_rooms(self):
+        self.house.rooms = 1
+
+
+class House():
+
+    def __init__(self):
+        self.foundation = None
+        self.roof = None
+        self.rooms = None
+
+    def __str__(self):
+        return 'Строить {}, {} и {} комната.'.format(self.foundation,
+                                                     self.roof, self.rooms)
+
+
+builder = BarracaBuilder()
+director = Director(builder)
+director.create_house()
+house = director.get_house()
+print(house)
+
