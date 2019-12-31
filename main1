@@ -1,0 +1,29 @@
+class Car:
+    def __init__(self, name, capacity):
+        self._name = name
+        self._capacity = capacity
+
+    def drive(self):
+        print("Запуск автомобильного двигателя")
+
+
+class Bus:
+    def __init__(self, name, capacity):
+        self.name = name
+        self._capacity = capacity
+
+    def drive(self):
+        print("Запуск автобусного двигателя")
+
+
+def get_vehicle(vehicle="Car"):
+    vehicles = dict(car=Car("ВАЗ", 6), bus=Bus("ГАЗ", 40))
+
+    return vehicles[vehicle]
+
+
+car = get_vehicle('car')
+car.drive()
+
+bus = get_vehicle('bus')
+bus.drive()
