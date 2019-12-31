@@ -1,0 +1,51 @@
+class prodBrand(object):
+    def __init__(self, brand: str, cost: float) -> None:
+        self.brand = brand
+        self.cost = cost
+        self._immutable = True 
+
+    def __setattr__(self, name, value):
+        if getattr(self, '_immutable', False): 
+            raise RuntimeError('Этот объект является неизменяемым!')
+        else:
+            super().__setattr__(name, value)
+
+
+class prodShop(object):
+    menu = {} 
+
+    def __init__(self) -> None:
+        self.orders = {}
+
+    def stock_prod(self, brand: str, cost: float) -> None:
+        prod = prodBrand(brand, cost)
+        self.menu[brand] = prod
+
+    def sell_prod(self, brand: str, units: int) -> None:
+        self.orders.setdefault(brand, 0)
+        self.orders[brand] += units
+
+    def total_units_sold(self):
+        return sum(self.orders.values())
+
+    def total_income(self):
+        income = 0
+        for brand, units in self.orders.items():
+            income += self.menu[brand].cost * units
+        return income
+
+
+shop1 = prodShop()
+shop2 = prodShop()
+
+shop1.stock_prod('Werd', 1.25)
+shop1.stock_prod('Dert', 3.75)
+
+shop1.sell_prod('Dert', 3)
+shop2.sell_prod('Dert', 8)
+
+assert shop1.total_units_sold() == 3
+assert shop1.total_income() == 3.75 * 3
+
+assert shop2.total_units_sold() == 8
+assert shop2.total_income() == 3.75 * 8
