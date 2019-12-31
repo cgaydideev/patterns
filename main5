@@ -1,0 +1,20 @@
+class toolsbox:
+
+    def __init__(self, size):
+        self._objects = [toolsboxObject() for i in range(size)]
+
+    def get_object(self):
+        return self._objects.pop()
+
+    def release_object(self, obj):
+        self._objects.append(obj)
+
+
+class toolsboxObject:
+    pass
+
+
+if __name__ == "__main__":
+    toolsbox = toolsbox(10)
+    obj1 = toolsbox.get_object()
+    toolsbox.release_object(obj1)
